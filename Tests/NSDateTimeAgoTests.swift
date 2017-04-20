@@ -30,6 +30,16 @@ class NSDateTimeAgoTests: XCTestCase {
 
     // MARK: - timeAgoSimple
 
+    func testMyEdit() {
+        let date = self.dateForComponents { $0.second = -10 }
+        print(date?.timeAgo)
+
+        ["pl", "de", "ru", "uk"].forEach { (loc) in
+            Date.timeAgoLocale = loc
+            print(date?.timeAgo)
+        }
+    }
+    
     func testTimeAgoSimpleSeconds() {
         XCTAssertEqual(self.dateForComponents { $0.second = -1 }?.timeAgoSimple, "1s")
         XCTAssertEqual(self.dateForComponents { $0.second = -2 }?.timeAgoSimple, "2s")

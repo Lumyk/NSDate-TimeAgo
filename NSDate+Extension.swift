@@ -23,17 +23,25 @@ func NSDateTimeAgoLocalizedStrings(_ key: String) -> String {
     if resourcePath == nil {
         return ""
     }
-
-    let path = URL(fileURLWithPath: resourcePath!).appendingPathComponent("NSDateTimeAgo.bundle")
+        
+    let path = URL(fileURLWithPath: resourcePath!).appendingPathComponent("NSDateTimeAgo.bundle/\(Date.timeAgoLocale).lproj")
     guard let bundle = Bundle(url: path) else {
         return ""
     }
 
-    return NSLocalizedString(key, tableName: "NSDateTimeAgo", bundle: bundle, comment: "")
+    return bundle.localizedString(forKey: key, value: nil, table: "NSDateTimeAgo")
 }
 
 extension Date {
-    
+    public static var timeAgoLocale : String {
+        get {
+            return UserDefaults.standard.string(forKey: "NSDateTimeAgoLocale") ?? "en"
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: "NSDateTimeAgoLocale")
+            UserDefaults.standard.synchronize()
+        }
+    }
     // shows 1 or two letter abbreviation for units.
     // does not include 'ago' text ... just {value}{unit-abbreviation}
     // does not include interim summary options such as 'Just now'
