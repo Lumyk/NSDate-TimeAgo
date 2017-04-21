@@ -12,7 +12,7 @@ import Foundation
 func NSDateTimeAgoLocalizedStrings(_ key: String) -> String {
     let resourcePath: String?
 
-    if let frameworkBundle = Bundle(identifier: "com.kevinlawler.NSDateTimeAgo") {
+    if let frameworkBundle = Bundle(identifier: "org.cocoapods.NSDate-TimeAgo") {
         // Load from Framework
         resourcePath = frameworkBundle.resourcePath
     } else {
